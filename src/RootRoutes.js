@@ -16,7 +16,7 @@ function RootRoutes() {
     <>
        <Routes>
           <Route path="/" element={<HomeCard />} /> 
-          <Route path="/flashCards" element={<HomeCard />} /> 
+          <Route path="/FlashCards" element={<HomeCard />} /> 
           <Route path="/decks/new" element={<CreateDeck />} /> 
           <Route path="/decks/:deckId/" element={<Deck />} />  
           <Route path="/decks/:deckId/study" element={<StudyCard />} />  
