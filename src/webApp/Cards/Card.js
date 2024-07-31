@@ -1,40 +1,51 @@
-import { React } from "react";
-import { Link } from "react-router-dom";
-import { deleteCard} from '../../utils/api/index';
-import { useNavigate } from "react-router-dom";
+// src/components/CardForm.js
 
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PostsNav from "../PostNav"
 
-
-function Card({cardId, deckId, back, front}) {
-  const navigate = useNavigate(); 
-  async function del() {
-    if (window.confirm("Are you sure you want to delete this Deck?")) {
-      await deleteCard(cardId);
-      navigate(0); // Forces the component to reload
-    } else {
-      console.log("Delete action canceled");
-    }
-}
+function CardForm({ card, onChange, onSubmit, breadcrumbs, title, submitButtonText, cancelLink }) {
   return (
-    <div className="card mb-3">
-      <div className="card-body">
-      <div className="d-flex justify-content-between">
-        <p className="card-text">{front}</p>
-        <p className="card-text">{back}</p>
-      </div>
+    <div className="container mt-5">
+      {/* Navigation component */}
+      <PostsNav breadcrumbs={breadcrumbs} />
+      <h5 className="card-title">{title}</h5>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label htmlFor="front">Front</label>
+          <textarea
+            className="form-control"
+            id="front"
+            rows="3"
+            placeholder="Front side of card"
+            name="front"
+            value={card.front}
+            onChange={onChange}        
+          ></textarea>
+        </div>
+        <div className="form-group">
+          <label htmlFor="back">Back</label>
+          <textarea
+            className="form-control"
+            id="back"
+            rows="3"
+            placeholder="Back side of card"
+            name="back"
+            value={card.back}
+            onChange={onChange}        
+          ></textarea>
+        </div>
         <div className="d-flex">
-          <div className="ml-auto">
-          <Link to={`/decks/${deckId}/cards/${cardId}/edit`} className="btn btn-secondary mr-2">
-            <span className="oi oi-pencil" aria-hidden="true"></span> Edit
+          <Link to={cancelLink} className="btn btn-secondary mr-2">
+            <span className="oi oi-circle-x" aria-hidden="true"></span> Cancel
           </Link>
-          <button type="button" className="btn btn-danger" onClick={del}>
-            <span className="oi oi-trash" aria-hidden="true"></span>
+          <button type="submit" className="btn btn-primary">
+            <span className="oi oi-circle-check" aria-hidden="true"></span> {submitButtonText}
           </button>
         </div>
-        </div>
-      </div>
+      </form>
     </div>
   );
-};
+}
 
-export default Card;
+export default CardForm;

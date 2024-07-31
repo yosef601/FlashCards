@@ -4,7 +4,7 @@ import { readDeck,deleteDeck } from '../../utils/api/index';
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa"; // For the home icon
 
-import  Card  from "../Cards/Card";
+import  Card  from "../Cards/CardOnDeck";
 import PostsNav from "../PostNav"
 
 

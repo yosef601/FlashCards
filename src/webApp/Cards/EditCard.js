@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa"; // For the home icon
 
 import PostsNav from "../PostNav"
+import CardForm from "./Card";
 
 function EditCard() {
     const navigate = useNavigate(); 
@@ -24,8 +25,8 @@ function EditCard() {
                 const curCard = await readCard(cardId);
                 setCardDetails(curCard);
 
-                //const Deck = await readDeck(deckId);
-                setDeckdDetails(curCard);
+                const Deck = await readDeck(deckId);
+                setDeckdDetails(Deck);
 
             } catch (error) {
                 console.error("Error fetching deck or cards:", error);
@@ -63,43 +64,17 @@ function EditCard() {
   };
 
   return (
-    <div className="container mt-5">
-     <PostsNav breadcrumbs={getBreadcrumbs()} />
-      <h3>Edit Card</h3>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="front">Front</label>
-          <textarea
-            className="form-control"
-            id="front"
-            name="front"
-            rows="3"
-            value={cardDetails.front}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="back">Back</label>
-          <textarea
-            className="form-control"
-            id="back"
-            name="back"
-            rows="3"
-            value={cardDetails.back}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <div className="d-flex">
-          <Link to={`/decks/${deckId}`} className="btn btn-secondary mr-2">
-            <span className="oi oi-circle-x" aria-hidden="true"></span> Cancel
-          </Link>
-          <button type="submit" className="btn btn-primary">
-            <span className="oi oi-circle-check" aria-hidden="true"></span> Submit
-          </button>
-        </div>
-      </form>
-    </div>
+    <CardForm
+      card={cardDetails}
+      onChange={handleChange}
+      onSubmit={onSubmit}
+      breadcrumbs={getBreadcrumbs()}
+      title="Edit Card"
+      submitButtonText="Submit"
+      cancelLink={`/decks/${deckId}`}
+    />
   );
+
 }
 
 export default EditCard;

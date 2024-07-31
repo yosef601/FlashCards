@@ -4,7 +4,7 @@ import { createCard,readDeck } from '../../utils/api/index';
 import { useNavigate } from "react-router-dom";
 import { FaHome } from "react-icons/fa"; // For the home icon
 
-import PostsNav from "../PostNav"
+import CardForm from "./Card";
 
 function NewCard() {
 const navigate = useNavigate(); 
@@ -73,46 +73,58 @@ const navigate = useNavigate();
     ];
 };
 
-  return (
-    <div className="container mt-5">
-    <PostsNav breadcrumbs={getBreadcrumbs()} />
-      <h5 className="card-title">{deckDetails.title}: Add Card</h5>
-      <form onSubmit={createNewCard}>
-        <div className="form-group">
-          <label htmlFor="front">Front</label>
-          <textarea
-            className="form-control"
-            id="front"
-            rows="3"
-            placeholder="Front side of card"
-            name="front"
-            value={card.front}
-            onChange={onChange}        
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="back">Back</label>
-          <textarea
-            className="form-control"
-            id="back"
-            rows="3"
-            placeholder="Back side of card"
-            name="back"
-            value={card.back}
-            onChange={onChange}        
-          ></textarea>
-        </div>
-        <div className="d-flex">
-          <button type="button" className="btn btn-secondary mr-2" onClick={Done}>
-            <span className="oi oi-circle-x" aria-hidden="true"></span> Done
-          </button>
-          <button type="submit" className="btn btn-primary">
-            <span className="oi oi-circle-check" aria-hidden="true"></span> Save
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+return (
+  <CardForm
+    card={card}
+    onChange={onChange}
+    onSubmit={createNewCard}
+    breadcrumbs={getBreadcrumbs()}
+    title="Add Card"
+    submitButtonText="Save"
+    cancelLink={`/decks/${deckId}`}
+  />
+);
+
+  // return (
+  //   <div className="container mt-5">
+  //   <PostsNav breadcrumbs={getBreadcrumbs()} />
+  //     <h5 className="card-title">{deckDetails.title}: Add Card</h5>
+  //     <form onSubmit={createNewCard}>
+  //       <div className="form-group">
+  //         <label htmlFor="front">Front</label>
+  //         <textarea
+  //           className="form-control"
+  //           id="front"
+  //           rows="3"
+  //           placeholder="Front side of card"
+  //           name="front"
+  //           value={card.front}
+  //           onChange={onChange}        
+  //         ></textarea>
+  //       </div>
+  //       <div className="form-group">
+  //         <label htmlFor="back">Back</label>
+  //         <textarea
+  //           className="form-control"
+  //           id="back"
+  //           rows="3"
+  //           placeholder="Back side of card"
+  //           name="back"
+  //           value={card.back}
+  //           onChange={onChange}        
+  //         ></textarea>
+  //       </div>
+  //       <div className="d-flex">
+  //         <button type="button" className="btn btn-secondary mr-2" onClick={Done}>
+  //           <span className="oi oi-circle-x" aria-hidden="true"></span> Done
+  //         </button>
+  //         <button type="submit" className="btn btn-primary">
+  //           <span className="oi oi-circle-check" aria-hidden="true"></span> Save
+  //         </button>
+  //       </div>
+  //     </form>
+  //   </div>
+  // );
 }
 
 export default NewCard;
